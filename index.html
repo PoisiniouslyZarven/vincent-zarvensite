@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnaX | Team Profil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-orange: #ff8c00;
+            --light-orange: #ffb347;
+            --dark-bg: #0a0a0a;
+            --glass-bg: rgba(20, 20, 20, 0.8);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+  * { box-sizing: border-box; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 20px 40px; 
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(5px);
+            animation: move 15s linear infinite;
+        }
+
+        /* VERBESSERTER TRANSPARENTER BUTTON */
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 140, 0, 0.1); /* Sehr transparent */
+            backdrop-filter: blur(5px);
+            color: var(--primary-orange);
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 140, 0, 0.3); /* Dezenter Rand */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.4rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.1) rotate(-8deg);
+            background: var(--primary-orange);
+            color: white;
+            box-shadow: 0 0 30px var(--primary-orange);
+            border-color: var(--primary-orange);
+        }
+
+        .profile-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 140, 0, 0.2);
+            border-radius: 40px;
+            width: 100%;
+            max-width: 650px;
+            padding: 80px 40px 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            animation: slideUp 1s ease-out;
+        }
+
+        .profile-img-container {
+            position: absolute;
+            top: -90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 180px;
+            z-index: 5;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 6px solid var(--primary-orange);
+            object-fit: cover;
+            background: #1a1a1a;
+            box-shadow: 0 15px 40px rgba(255, 140, 0, 0.5);
+            animation: float 5s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(to bottom, #fff, #bbb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .age-badge {
+            color: var(--primary-orange);
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .roles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .role-tag {
+            background: rgba(255, 140, 0, 0.1);
+            border: 1px solid var(--primary-orange);
+            padding: 8px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--primary-orange);
+            transition: var(--transition);
+        }
+
+        .role-tag:hover {
+            background: var(--primary-orange);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.4);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
+
+        .info-box:hover {
+            border-color: var(--primary-orange);
+            background: rgba(255, 140, 0, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .info-box h3 {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-box p {
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .membership {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .membership span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .membership i { color: var(--primary-orange); }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-15px) translateX(-50%); }
+        }
+
+        @keyframes move {
+            from { transform: translateY(100vh) scale(1); }
+            to { transform: translateY(-100px) scale(1.5); }
+        }
+
+        @media (max-width: 500px) {
+            .profile-card { padding: 80px 20px 30px; }
+            h1 { font-size: 2.2rem; }
+            .back-btn { top: 15px; left: 15px; width: 45px; height: 45px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles">
+        <div class="particle" style="width: 100px; height: 100px; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 50px; height: 50px; left: 80%; animation-delay: 5s;"></div>
+        <div class="particle" style="width: 80px; height: 80px; left: 40%; animation-delay: 2s;"></div>
+    </div>
+
+    <a href="Startseite.html" class="back-btn" title="Zur Startseite">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="profile-card">
+        <div class="profile-img-container">
+            <img src="profile.png" alt="SnaX" class="profile-img">
+        </div>
+
+        <h1>SnaX</h1>
+        <span class="age-badge">
+            <i class="fas fa-bolt"></i> 3 Jahre | Developer Erfahrung
+        </span>
+
+        <div class="roles">
+            <span class="role-tag"><i class="fas fa-crown"></i> Admin</span>
+            <span class="role-tag"><i class="fas fa-terminal"></i> Developer</span>
+            <span class="role-tag"><i class="fas fa-globe"></i> Website-Master</span>
+            <span class="role-tag"><i class="fas fa-vial"></i> Tester</span>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <h3><i class="fas fa-quote-left"></i> Über mich</h3>
+                <p>Hey liebe Zarven Community! Ich bin Julian oder auch SnaX. Ich achte darauf, dass ihr ein voll funktionsfähiges System habt, sodass ihr bei der Nutzung von Zarven auf keine Fehler mehr stoßen solltet. Übrigens unterstütze ich Ben sehr gerne, da er mir mittlerweile ein echt guter Freund geworden ist!</p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-rocket"></i> Meine Aufgaben</h3>
+                <p>• Fehlersuche & Debugging<br>
+                   • Update- & Verbesserungsvorschläge<br>
+                   • Konzeption neuer Features</p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-bullseye"></i> Meine Ziele</h3>
+                <p>Das größte Netzwerk der Welt mit dem Team und der Community aufbauen und dabei das Design immer im perfekten Zustand halten!</p>
+            </div>
+        </div>
+
+        <div class="membership">
+            <span><i class="fas fa-calendar-alt"></i> Seit 14.03.2026</span>
+            <span><i class="fas fa-code-branch"></i> Im Bot-Team seit 2025</span>
+        </div>
+    </div>
+
+</body>
+</html>
+
