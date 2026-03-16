@@ -1,4 +1,4 @@
-# Zarven - Julian
+# Zarven - Vincent
 
 
-Statische teamseite von @Planeteriumprovider
+Statische teamseite von @PoisiniouslyZarven
